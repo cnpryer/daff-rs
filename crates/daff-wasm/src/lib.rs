@@ -7,9 +7,10 @@ use wasm_bindgen::prelude::*;
 pub struct Diff {}
 
 #[wasm_bindgen]
+// temporary wrapper struct
 impl Diff {
     #[wasm_bindgen]
-    pub fn json(&self) -> String {
+    pub fn display(&self) -> String {
         String::from("hello world")
     }
 }
