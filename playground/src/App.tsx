@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import init, { Csv } from "./pkg/daff_wasm";
+
+import { useEffect, useState } from "react";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [a, setA] = useState("a,b,c\n1,1,1");
+  const [b, setB] = useState("a,b,c\n2,1,1");
+  const [diff, setDiff] = useState("");
+
+  useEffect(() => {
+    async function initAsync() {
+      await init(); // Initialize WASM module
+
+      const csvA = new Csv(a);
+      const csvB = new Csv(b);
+
+      setDiff(csvA.compare(csvB).display());
+    }
+
+    initAsync().catch(console.error);
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="card">{a}</div>
+      <div className="card">{b}</div>
+      <div className="card">{diff}</div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

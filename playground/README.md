@@ -4,4 +4,4 @@ An interactive playground for the `daff-rs` project. This project uses the `daff
 
 # Getting started
 
-Run the playround with `pnpm run` or `pnpm dev` for development.
+Run the playround with `pnpm dev`.
