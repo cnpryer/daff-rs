@@ -16,7 +16,7 @@ function App() {
       const csvA = new Csv(a);
       const csvB = new Csv(b);
 
-      setDiff(csvA.compare(csvB).display());
+      setDiff(csvB.compare(csvA));
     }
 
     initAsync().catch(console.error);
