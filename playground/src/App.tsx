@@ -2,11 +2,12 @@ import init, { Csv } from "./pkg/daff_wasm";
 
 import { useEffect, useState } from "react";
 
-import "./App.css";
+import "./App.css"; // Remove if not needed
+import { TextareaAutosize } from "@mui/base";
 
 function App() {
-  const [a, setA] = useState("a,b,c\n1,1,1");
-  const [b, setB] = useState("a,b,c\n2,1,1");
+  const [a, setA] = useState("a,b,c\n1,2,3");
+  const [b, setB] = useState("a,b,c\n1,2,4");
   const [diff, setDiff] = useState("");
 
   useEffect(() => {
@@ -16,18 +17,30 @@ function App() {
       const csvA = new Csv(a);
       const csvB = new Csv(b);
 
-      setDiff(csvB.compare(csvA));
+      setDiff(csvA.compare(csvB));
     }
 
     initAsync().catch(console.error);
-  }, []);
+  }, [a, b]);
 
   return (
-    <>
-      <div className="card">{a}</div>
-      <div className="card">{b}</div>
-      <div className="card">{diff}</div>
-    </>
+    <div className="grid grid-cols-3 gap-4 min-h-screen">
+      <div className="w-full h-full">
+        <TextareaAutosize
+          className="resize-none w-full min-h-full p-2 border border-gray-300"
+          value={a}
+          onChange={(e) => setA(e.target.value)}
+        />
+      </div>
+      <div className="w-full h-full">
+        <TextareaAutosize
+          className="resize-none w-full min-h-full p-2 border border-gray-300"
+          value={b}
+          onChange={(e) => setB(e.target.value)}
+        />
+      </div>
+      <div className="w-full h-full p-2 border border-gray-300">{diff}</div>
+    </div>
   );
 }
 

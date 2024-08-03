@@ -5,7 +5,7 @@ use std::fmt::Display;
 ///
 /// The `Diff` struct stores reconciliation data.
 pub struct Diff {
-    prev_source: String,
+    curr_source: String,
     next_soruce: String,
     pub data: String,
 }
@@ -36,15 +36,15 @@ impl Csv {
         Self { source: buffer }
     }
 
-    /// Compute the diff from another Csv.
+    /// Compute the diff with another `Csv`.
     pub fn compare(&self, other: &Self) -> Diff {
         compare_source(&self.source, &other.source)
     }
 }
 
-fn compare_source(prev: &str, next: &str) -> Diff {
+fn compare_source(curr: &str, next: &str) -> Diff {
     Diff {
-        prev_source: prev.to_string(),
+        curr_source: curr.to_string(),
         next_soruce: next.to_string(),
         data: String::from("TODO"),
     }
