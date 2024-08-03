@@ -1,14 +1,36 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+// expose library
+pub use daff::Csv as DaffCsv;
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+// temporary wrapper struct
+pub struct Diff {}
+
+#[wasm_bindgen]
+impl Diff {
+    #[wasm_bindgen]
+    pub fn json(&self) -> String {
+        String::from("hello world")
+    }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[wasm_bindgen]
+// temporary wrapper struct
+pub struct Csv {
+    inner: DaffCsv,
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+#[wasm_bindgen]
+impl Csv {
+    #[wasm_bindgen(constructor)]
+    pub fn new(buffer: String) -> Self {
+        Self {
+            inner: DaffCsv::new(buffer),
+        }
+    }
+
+    #[wasm_bindgen]
+    pub fn compare(&self, other: &Csv) -> Diff {
+        Diff {}
     }
 }
