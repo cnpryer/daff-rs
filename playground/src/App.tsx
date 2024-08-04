@@ -1,4 +1,4 @@
-import init, { Csv } from "./pkg/daff_wasm";
+import init, { Text } from "./pkg/daff_wasm";
 
 import { useEffect, useState } from "react";
 import { TextareaAutosize } from "@mui/base";
@@ -14,10 +14,10 @@ function App() {
     async function initAsync() {
       await init(); // Initialize WASM module
 
-      const csvA = new Csv(a);
-      const csvB = new Csv(b);
+      const textA = new Text(a);
+      const textB = new Text(b);
 
-      setChanges(csvA.compare(csvB).to_string());
+      setChanges(textA.compare(textB).toString());
     }
 
     initAsync().catch(console.error);

@@ -5,11 +5,11 @@ A [wasm](https://webassembly.org/) module for the `daff-rs` library.
 # Usage
 
 ```ts
-import init, { Csv, type Changes } from 'TODO';
+import init, { Text, type TextChanges } from 'TODO';
 
 await init(); // Initializes WASM module
 
-const csv = new Csv('a,b,c\n1,1,1')
+const text = new Text('a,b,c\n1,2,3')
 
-const changes: Changes = csv.compare('a,b,c\n2,1,1');
+const changes: Changes = text.compare('a,b,c\n1,2,4');
 ```
