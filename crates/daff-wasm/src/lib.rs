@@ -1,5 +1,4 @@
-// expose library
-pub use daff::{Csv as CsvInner, Diff};
+pub use daff::{Changes as ChangesInner, Csv as CsvInner, Diff as DiffInner};
 
 use wasm_bindgen::prelude::*;
 
@@ -18,7 +17,22 @@ impl Csv {
     }
 
     #[wasm_bindgen]
-    pub fn compare(&self, other: &Csv) -> String {
-        self.inner.compare(&other.inner).to_string()
+    pub fn compare(&self, other: &Csv) -> Diff {
+        Diff {
+            inner: self.inner.compare(&other.inner),
+        }
+    }
+}
+
+#[wasm_bindgen]
+pub struct Diff {
+    inner: DiffInner,
+}
+
+#[wasm_bindgen]
+impl Diff {
+    #[wasm_bindgen]
+    pub fn to_string(self) -> String {
+        self.inner.to_string()
     }
 }

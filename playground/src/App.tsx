@@ -1,9 +1,9 @@
 import init, { Csv } from "./pkg/daff_wasm";
 
 import { useEffect, useState } from "react";
-
-import "./App.css"; // Remove if not needed
 import { TextareaAutosize } from "@mui/base";
+
+import "./App.css";
 
 function App() {
   const [a, setA] = useState("a,b,c\n1,2,3");
@@ -17,7 +17,7 @@ function App() {
       const csvA = new Csv(a);
       const csvB = new Csv(b);
 
-      setDiff(csvA.compare(csvB));
+      setDiff(csvA.compare(csvB).to_string());
     }
 
     initAsync().catch(console.error);
