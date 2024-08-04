@@ -11,5 +11,5 @@ await init(); // Initializes WASM module
 
 const text = new Text('a,b,c\n1,2,3')
 
-const changes: Changes = text.compare('a,b,c\n1,2,4');
+const changes: TextChanges = text.compare(Text('a,b,c\n1,2,4'));
 ```
