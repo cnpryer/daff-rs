@@ -1,3 +1,3 @@
 mod csv;
 
-pub use csv::{Changes, Csv, Diff};
+pub use csv::{Changes, Csv};

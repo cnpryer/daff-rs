@@ -2,8 +2,6 @@ use std::{collections::HashSet, fmt::Display};
 
 /// A `Csv` data structure.
 ///
-/// The `Csv` is used to compute diffs between two CSV sources.
-///
 /// ```rs
 /// use daff::Csv;
 ///
@@ -22,8 +20,8 @@ impl Csv {
         }
     }
 
-    /// Compute the diff with another `Csv`.
-    pub fn compare(&self, other: &Self) -> Diff {
+    /// Compute the `Changes` from another `Csv`.
+    pub fn compare(&self, other: &Self) -> Changes {
         compare_data(&self.data, &other.data)
     }
 }
@@ -45,7 +43,7 @@ fn read_csv(buffer: String) -> Vec<Vec<String>> {
     data
 }
 
-fn compare_data(curr: &Vec<Vec<String>>, next: &Vec<Vec<String>>) -> Diff {
+fn compare_data(curr: &Vec<Vec<String>>, next: &Vec<Vec<String>>) -> Changes {
     let mut changes = Changes {
         positions: HashSet::new(),
     };
@@ -58,15 +56,7 @@ fn compare_data(curr: &Vec<Vec<String>>, next: &Vec<Vec<String>>) -> Diff {
         }
     }
 
-    Diff { changes }
-}
-
-#[derive(Debug)]
-/// `daff-rs`'s `Diff` struct.
-///
-/// The `Diff` struct stores reconciliation data.
-pub struct Diff {
-    pub changes: Changes,
+    changes
 }
 
 #[derive(Debug)]
@@ -74,7 +64,7 @@ pub struct Changes {
     pub positions: HashSet<[usize; 2]>,
 }
 
-impl Display for Diff {
+impl Display for Changes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)
     }

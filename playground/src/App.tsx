@@ -8,7 +8,7 @@ import "./App.css";
 function App() {
   const [a, setA] = useState("a,b,c\n1,2,3");
   const [b, setB] = useState("a,b,c\n1,2,4");
-  const [diff, setDiff] = useState("");
+  const [changes, setChanges] = useState("");
 
   useEffect(() => {
     async function initAsync() {
@@ -17,7 +17,7 @@ function App() {
       const csvA = new Csv(a);
       const csvB = new Csv(b);
 
-      setDiff(csvA.compare(csvB).to_string());
+      setChanges(csvA.compare(csvB).to_string());
     }
 
     initAsync().catch(console.error);
@@ -39,7 +39,7 @@ function App() {
           onChange={(e) => setB(e.target.value)}
         />
       </div>
-      <div className="w-full h-full p-2 border border-gray-300">{diff}</div>
+      <div className="w-full h-full p-2 border border-gray-300">{changes}</div>
     </div>
   );
 }
